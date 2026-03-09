@@ -6,6 +6,7 @@ Converts markdown and templates to static HTML files
 import markdown
 import codecs
 import json
+import sys
 import time
 import shutil
 import subprocess
@@ -241,7 +242,7 @@ def fetch_papers():
     if fetch_script.exists():
         try:
             result = subprocess.run(
-                ['python3', str(fetch_script)],
+                [sys.executable, str(fetch_script)],
                 capture_output=True,
                 text=True,
                 timeout=300  # 5 minute timeout
@@ -558,7 +559,13 @@ def deploy_to_gh_pages():
             return
         
         print(f"✓ Copied {files_copied} files/directories")
-        
+
+        # Ensure CNAME file exists for custom domain
+        cname_path = Path('CNAME')
+        if not cname_path.exists():
+            cname_path.write_text('njw.fish\n')
+            print("  Restored CNAME file for custom domain")
+
         # Add all files
         subprocess.run(['git', 'add', '-A'], check=True)
         

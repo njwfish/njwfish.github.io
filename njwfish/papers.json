@@ -1,6 +1,30 @@
 {
   "published": [
     {
+      "title": "Count Bridges enable Modeling and Deconvolving Transcriptomic Data",
+      "authors": "<b>Nic Fishman</b>, Gokul Gowri, Tanush Kumar, Jiaqi Lu, Valentin De Bortoli, Jonathan S. Gootenberg, and Omar Abudayyeh",
+      "venue": "ICLR",
+      "year": "2026",
+      "citation": "International Conference on Learning Representations, 2026",
+      "pdf_link": "https://openreview.net/forum?id=4nOZBufbLC",
+      "pub_url": "https://openreview.net/forum?id=4nOZBufbLC",
+      "eprint_url": "",
+      "source": "manual",
+      "auto_fetched": false
+    },
+    {
+      "title": "Generative Distribution Embeddings",
+      "authors": "<b>Nic Fishman</b>, Gokul Gowri, Peng Yin, Jonathan Gootenberg, and Omar Abudayyeh",
+      "venue": "Advances in Neural Information Processing Systems",
+      "year": "2025",
+      "citation": "Advances in Neural Information Processing Systems 38, 2025",
+      "pdf_link": "https://arxiv.org/abs/2505.18150",
+      "pub_url": "https://arxiv.org/abs/2505.18150",
+      "eprint_url": "",
+      "source": "manual",
+      "auto_fetched": false
+    },
+    {
       "title": "Partisan disparities in the funding of science in the United States",
       "authors": "Alexander C Furnas, <b>Nic Fishman</b>, Leah Rosenstiel, and Dashun Wang",
       "venue": "Science",
@@ -107,16 +131,16 @@
   ],
   "working": [
     {
-      "title": "Generative Distribution Embeddings",
-      "authors": "<b>Nic Fishman</b>, Gokul Gowri, Peng Yin, Jonathan Gootenberg, and Omar Abudayyeh",
-      "venue": "arXiv preprint arXiv:2505.18150",
+      "title": "Rethinking Repeatability in Observational Social Science",
+      "authors": "Jonathan Ben-Menachem, Ari Galper, and <b>Nic Fishman</b>",
+      "venue": "SocArXiv",
       "year": "2025",
-      "citation": "arXiv preprint arXiv:2505.18150, 2025",
-      "pdf_link": "https://arxiv.org/abs/2505.18150",
-      "pub_url": "https://arxiv.org/abs/2505.18150",
+      "citation": "SocArXiv, 2025",
+      "pdf_link": "https://osf.io/download/6931f03793776124ca0d8bae/",
+      "pub_url": "https://osf.io/download/6931f03793776124ca0d8bae/",
       "eprint_url": "",
-      "source": "google_scholar",
-      "auto_fetched": true
+      "source": "manual",
+      "auto_fetched": false
     },
     {
       "title": "Making (Global) Criminal Procedure: Empire, the End of Justice, and the Rise of Efficiency",
@@ -129,14 +153,6 @@
       "eprint_url": "",
       "source": "google_scholar",
       "auto_fetched": true
-    },
-    {
-      "title": "The False Promise of Controlling False Positives: Ephemerality and the \"Replication Crisis\" in Observational Studies",
-      "authors": "Ben-Menachem, J., * <b>Fishman, N., *</b> Galper, and G.*",
-      "venue": "",
-      "pdf_link": null,
-      "source": "manual",
-      "auto_fetched": false
     },
     {
       "title": "Principled Models for Analyzing Max-Diff Surveys",

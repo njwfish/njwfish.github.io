@@ -178,21 +178,19 @@ def merge_paper_entries(paper1: Dict, paper2: Dict) -> Dict:
     Merge two paper entries, preferring Google Scholar data (more up-to-date)
     but preserving local-only fields like github_link.
     """
-    # Determine which is from Google Scholar and which is local/manual
-    paper1_is_scholar = paper1.get('source') == 'google_scholar' or paper1.get('auto_fetched', False)
-    paper2_is_scholar = paper2.get('source') == 'google_scholar' or paper2.get('auto_fetched', False)
-    
-    # Prefer Google Scholar as base (more up-to-date), but fall back to more complete entry
-    if paper1_is_scholar and not paper2_is_scholar:
-        # paper1 is from Google Scholar, use it as base
+    # Determine which is manual (check substring since merged entries have "google_scholar,manual")
+    paper1_is_manual = 'manual' in paper1.get('source', '')
+    paper2_is_manual = 'manual' in paper2.get('source', '')
+
+    # Manual entries are curated by hand — always prefer them as base
+    if paper1_is_manual and not paper2_is_manual:
         base = paper1.copy()
         local = paper2.copy()
-    elif paper2_is_scholar and not paper1_is_scholar:
-        # paper2 is from Google Scholar, use it as base
+    elif paper2_is_manual and not paper1_is_manual:
         base = paper2.copy()
         local = paper1.copy()
     else:
-        # Both or neither from Google Scholar - use more complete as base
+        # Both manual or both auto — use more complete as base
         count1 = count_fields(paper1)
         count2 = count_fields(paper2)
         if count1 >= count2:
@@ -201,24 +199,25 @@ def merge_paper_entries(paper1: Dict, paper2: Dict) -> Dict:
         else:
             base = paper2.copy()
             local = paper1.copy()
-    
-    # Start with Google Scholar/base entry
+
+    base_is_manual = 'manual' in base.get('source', '')
+
+    # Start with base entry
     merged = base.copy()
-    
-    # Fields that Google Scholar provides - prefer base (Google Scholar) but fill gaps from local
+
+    # Only fill in gaps from the other entry — never overwrite existing fields
     scholar_fields = ['title', 'authors', 'venue', 'year', 'citation', 'pub_url', 'eprint_url', 'pdf_link']
     for field in scholar_fields:
-        # If base is missing this field, fill from local
         if not merged.get(field) or not str(merged[field]).strip():
             if local.get(field) and str(local[field]).strip():
                 merged[field] = local[field]
-    
+
     # Fields that are typically local-only - always preserve from local if present
     local_only_fields = ['github_link']
     for field in local_only_fields:
         if local.get(field) and str(local[field]).strip():
             merged[field] = local[field]
-    
+
     # If venue is still missing but citation exists, try to extract venue from citation
     if not merged.get('venue') or not str(merged.get('venue', '')).strip():
         citation = merged.get('citation', '')
@@ -226,18 +225,20 @@ def merge_paper_entries(paper1: Dict, paper2: Dict) -> Dict:
             extracted_venue = extract_venue_from_citation(citation)
             if extracted_venue:
                 merged['venue'] = extracted_venue
-    
-    # Track sources
-    sources = set()
-    if merged.get('source'):
-        sources.add(merged['source'])
-    if local.get('source'):
-        sources.add(local['source'])
-    merged['source'] = ','.join(sorted(sources)) if sources else 'merged'
-    
-    # If either was auto-fetched, mark as potentially auto-fetched
-    merged['auto_fetched'] = merged.get('auto_fetched', False) or local.get('auto_fetched', False)
-    
+
+    # Preserve manual source identity so future runs still recognize it
+    if base_is_manual:
+        merged['source'] = 'manual'
+        merged['auto_fetched'] = False
+    else:
+        sources = set()
+        if merged.get('source'):
+            sources.add(merged['source'])
+        if local.get('source'):
+            sources.add(local['source'])
+        merged['source'] = ','.join(sorted(sources)) if sources else 'merged'
+        merged['auto_fetched'] = True
+
     return merged
 
 
@@ -419,48 +420,77 @@ def organize_papers(papers: List[Dict]) -> Dict:
     return {'published': published, 'working': working}
 
 
+def _get_url_key(paper: Dict) -> str:
+    """Extract a comparable URL key from a paper (domain + path, ignoring query params)."""
+    for field in ('pub_url', 'pdf_link', 'eprint_url'):
+        url = paper.get(field, '') or ''
+        url = url.strip()
+        if url:
+            # Strip query string for comparison
+            return url.split('?')[0].rstrip('/')
+    return ''
+
+
+def _papers_match(paper1: Dict, paper2: Dict) -> bool:
+    """Check if two papers are the same via title similarity OR matching URLs."""
+    # URL match is definitive
+    url1 = _get_url_key(paper1)
+    url2 = _get_url_key(paper2)
+    if url1 and url2 and url1 == url2:
+        return True
+
+    # Title similarity
+    similarity = title_similarity(paper1.get('title', ''), paper2.get('title', ''))
+    if similarity > 0.85:
+        return True
+
+    # Check if one title is a prefix/substring of the other (handles subtitles)
+    t1 = normalize_title(paper1.get('title', ''))
+    t2 = normalize_title(paper2.get('title', ''))
+    if t1 and t2 and (t1 in t2 or t2 in t1) and min(len(t1), len(t2)) > 20:
+        return True
+
+    return False
+
+
 def deduplicate_and_merge_papers(existing_papers: List[Dict], scholar_papers: List[Dict]) -> List[Dict]:
     """
-    Intelligently merge papers, deduplicating by title similarity.
+    Intelligently merge papers, deduplicating by title similarity or URL match.
     Keeps the entry with the most information.
     """
     # Separate manual papers from existing ones
-    manual_papers = [p for p in existing_papers if p.get('source') == 'manual' or not p.get('auto_fetched', False)]
-    
+    manual_papers = [p for p in existing_papers if 'manual' in p.get('source', '') or not p.get('auto_fetched', False)]
+
     # Start with all papers
     all_papers = manual_papers + scholar_papers
-    
+
     # Group similar papers
     merged_papers = []
     processed_indices: Set[int] = set()
-    
+
     for i, paper1 in enumerate(all_papers):
         if i in processed_indices:
             continue
-        
+
         # Find similar papers
         similar_papers = [paper1]
-        
+
         for j, paper2 in enumerate(all_papers[i+1:], start=i+1):
             if j in processed_indices:
                 continue
-            
-            # Check title similarity
-            similarity = title_similarity(paper1.get('title', ''), paper2.get('title', ''))
-            
-            # Consider similar if similarity > 0.85 (85% match)
-            if similarity > 0.85:
+
+            if _papers_match(paper1, paper2):
                 similar_papers.append(paper2)
                 processed_indices.add(j)
-        
+
         # Merge all similar papers
         merged = similar_papers[0]
         for similar in similar_papers[1:]:
             merged = merge_paper_entries(merged, similar)
-        
+
         merged_papers.append(merged)
         processed_indices.add(i)
-    
+
     return merged_papers
 
 
@@ -491,21 +521,22 @@ def main():
     existing_papers = load_existing_papers(papers_json)
     print(f"Found {len(existing_papers)} existing papers")
     
-    # Extract manual papers (those not auto-fetched)
-    manual_papers = [p for p in existing_papers if not p.get('auto_fetched', False) or p.get('source') == 'manual']
-    print(f"  - {len(manual_papers)} manual entries")
-    print(f"  - {len(existing_papers) - len(manual_papers)} previously auto-fetched")
-    
+    # Count manual vs auto-fetched for reporting
+    manual_count = sum(1 for p in existing_papers if not p.get('auto_fetched', False) or 'manual' in p.get('source', ''))
+    print(f"  - {manual_count} manual entries")
+    print(f"  - {len(existing_papers) - manual_count} previously auto-fetched")
+
     print("\nFetching publications from Google Scholar...")
     scholar_papers = fetch_google_scholar_publications()
-    
+
     print("\nMerging and deduplicating publications...")
-    merged = deduplicate_and_merge_papers(manual_papers, scholar_papers)
+    # Pass ALL existing papers so auto-fetched ones aren't lost if Scholar fetch fails
+    merged = deduplicate_and_merge_papers(existing_papers, scholar_papers)
     
     print(f"\nTotal after merging: {len(merged)} unique publications")
     
     # Show merge statistics
-    manual_count = sum(1 for p in merged if p.get('source') == 'manual' or not p.get('auto_fetched', False))
+    manual_count = sum(1 for p in merged if 'manual' in p.get('source', '') or not p.get('auto_fetched', False))
     scholar_count = sum(1 for p in merged if p.get('source') == 'google_scholar' and p.get('auto_fetched', False))
     merged_count = sum(1 for p in merged if ',' in p.get('source', ''))
     print(f"  - Manual only: {manual_count}")
