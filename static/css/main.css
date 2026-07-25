@@ -122,7 +122,7 @@ iframe {
 
 .site-name {
     font-family: var(--serif);
-    font-size: 1.72rem;
+    font-size: 1.45rem;
     line-height: 1;
     letter-spacing: -0.025em;
 }
@@ -218,19 +218,19 @@ h3 {
 }
 
 h1 {
-    font-size: clamp(2.45rem, 6vw, 3.85rem);
-    line-height: 1.06;
-    letter-spacing: -0.04em;
+    font-size: clamp(2.05rem, 4.2vw, 2.75rem);
+    line-height: 1.1;
+    letter-spacing: -0.035em;
 }
 
 h2 {
-    font-size: 1.4rem;
-    line-height: 1.22;
+    font-size: 1.22rem;
+    line-height: 1.28;
     letter-spacing: -0.02em;
 }
 
 h3 {
-    font-size: 1.08rem;
+    font-size: 1.02rem;
     line-height: 1.4;
 }
 
@@ -279,7 +279,7 @@ p {
 }
 
 .section-heading-row h2 {
-    font-size: 1.35rem;
+    font-size: 1.18rem;
 }
 
 .section-link {
@@ -350,7 +350,7 @@ p {
 
 .publication-section > h2 {
     margin-bottom: 0.9rem;
-    font-size: 1.35rem;
+    font-size: 1.18rem;
 }
 
 .publication-row,
@@ -444,11 +444,11 @@ p {
 }
 
 .post-body h2 {
-    font-size: 1.7rem;
+    font-size: 1.4rem;
 }
 
 .post-body h3 {
-    font-size: 1.3rem;
+    font-size: 1.16rem;
 }
 
 .post-body ul,
@@ -500,7 +500,7 @@ p {
 
 .paper-record-header h1 {
     max-width: 19ch;
-    font-size: clamp(2.3rem, 5vw, 3.45rem);
+    font-size: clamp(2rem, 4vw, 2.55rem);
 }
 
 .paper-record-authors {
@@ -523,7 +523,7 @@ p {
 
 .paper-abstract h2 {
     margin-bottom: 1rem;
-    font-size: 1.35rem;
+    font-size: 1.18rem;
 }
 
 .paper-abstract p {
