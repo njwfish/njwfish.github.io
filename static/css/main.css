@@ -488,6 +488,52 @@ p {
     border-top: 1px solid var(--rule);
 }
 
+.paper-record {
+    max-width: 800px;
+}
+
+.paper-record-type {
+    margin: 0 0 0.85rem;
+    color: var(--muted);
+    font-size: 0.82rem;
+}
+
+.paper-record-header h1 {
+    max-width: 19ch;
+    font-size: clamp(2.3rem, 5vw, 3.45rem);
+}
+
+.paper-record-authors {
+    margin: 1.35rem 0 0;
+    color: var(--text-soft);
+    font-family: var(--serif);
+    font-size: 1.08rem;
+}
+
+.paper-record-actions {
+    margin: 1.2rem 0 0;
+    font-size: 0.88rem;
+}
+
+.paper-abstract {
+    padding-top: 2.5rem;
+    margin-top: 3.5rem;
+    border-top: 1px solid var(--rule);
+}
+
+.paper-abstract h2 {
+    margin-bottom: 1rem;
+    font-size: 1.35rem;
+}
+
+.paper-abstract p {
+    max-width: 730px;
+    color: var(--text-soft);
+    font-family: var(--serif);
+    font-size: 1.02rem;
+    line-height: 1.75;
+}
+
 @media (max-width: 700px) {
     .site-header,
     .site-main,
