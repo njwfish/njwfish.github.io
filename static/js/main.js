@@ -30,7 +30,7 @@
             toggle.setAttribute('title', label);
             toggle.setAttribute('aria-pressed', String(isDark));
             if (icon) {
-                icon.textContent = isDark ? '☀' : '☾';
+                icon.textContent = isDark ? '\u2600\uFE0E' : '\u263E\uFE0E';
             }
         }
     }

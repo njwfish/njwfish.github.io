@@ -164,6 +164,7 @@ iframe {
     border: 0;
     border-radius: 50%;
     font: inherit;
+    font-family: var(--serif);
     font-size: 0.95rem;
     line-height: 1;
     cursor: pointer;
