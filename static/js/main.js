@@ -24,8 +24,9 @@
 
         if (toggle) {
             const isDark = theme === 'dark';
-            toggle.textContent = isDark ? 'Light' : 'Dark';
-            toggle.setAttribute('aria-label', isDark ? 'Use light mode' : 'Use dark mode');
+            const label = isDark ? 'Use light mode' : 'Use dark mode';
+            toggle.setAttribute('aria-label', label);
+            toggle.setAttribute('title', label);
             toggle.setAttribute('aria-pressed', String(isDark));
         }
     }
