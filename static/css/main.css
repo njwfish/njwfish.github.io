@@ -251,16 +251,16 @@ p {
 }
 
 .intro-copy {
-    max-width: 750px;
-    margin-top: 2.25rem;
+    max-width: 780px;
+    margin-top: 1.35rem;
     color: var(--text-soft);
     font-family: var(--serif);
-    font-size: clamp(1.08rem, 2vw, 1.22rem);
-    line-height: 1.75;
+    font-size: clamp(1.04rem, 1.5vw, 1.12rem);
+    line-height: 1.65;
 }
 
 .intro-copy p {
-    margin-bottom: 1.25rem;
+    margin-bottom: 0.85rem;
 }
 
 .intro-copy p:last-child {
