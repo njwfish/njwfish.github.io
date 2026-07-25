@@ -280,7 +280,7 @@ p {
 }
 
 .home-introduction {
-    max-width: var(--list-width);
+    max-width: none;
 }
 
 .home-introduction h1 {
@@ -306,7 +306,7 @@ p {
 }
 
 .featured-publications {
-    max-width: var(--heading-width);
+    max-width: none;
     padding-top: 1.5rem;
     margin-top: clamp(2.25rem, 4vw, 2.75rem);
     border-top: 1px solid var(--rule);
@@ -370,7 +370,7 @@ p {
 }
 
 .page-content {
-    max-width: var(--list-width);
+    max-width: none;
 }
 
 .page-heading {
