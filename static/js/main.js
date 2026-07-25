@@ -25,9 +25,13 @@
         if (toggle) {
             const isDark = theme === 'dark';
             const label = isDark ? 'Use light mode' : 'Use dark mode';
+            const icon = toggle.querySelector('[aria-hidden="true"]');
             toggle.setAttribute('aria-label', label);
             toggle.setAttribute('title', label);
             toggle.setAttribute('aria-pressed', String(isDark));
+            if (icon) {
+                icon.textContent = isDark ? '☀' : '☾';
+            }
         }
     }
 
