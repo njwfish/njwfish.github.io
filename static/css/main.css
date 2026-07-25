@@ -281,10 +281,10 @@ p {
 
 .home-introduction {
     display: grid;
-    grid-template-columns: minmax(0, var(--reading-width)) clamp(10rem, 18vw, 11.75rem);
+    grid-template-columns: minmax(0, var(--reading-width)) clamp(14rem, 26vw, 17rem);
     align-items: start;
     justify-content: space-between;
-    gap: clamp(3rem, 8vw, 6rem);
+    gap: clamp(2.5rem, 5vw, 4rem);
     max-width: none;
 }
 
