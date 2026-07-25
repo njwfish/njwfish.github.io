@@ -281,9 +281,8 @@ p {
 
 .home-introduction {
     display: grid;
-    grid-template-columns: minmax(0, var(--reading-width)) clamp(14rem, 26vw, 17rem);
+    grid-template-columns: minmax(0, var(--reading-width)) minmax(14rem, 1fr);
     align-items: start;
-    justify-content: space-between;
     gap: clamp(2.5rem, 5vw, 4rem);
     max-width: none;
 }
@@ -297,10 +296,10 @@ p {
 }
 
 .home-portrait {
-    width: 100%;
+    width: min(100%, 17rem);
     margin: 0;
     aspect-ratio: 1;
-    justify-self: end;
+    justify-self: center;
 }
 
 .home-portrait img {
