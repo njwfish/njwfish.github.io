@@ -71,6 +71,8 @@ html {
     overflow-x: clip;
     font-size: 16px;
     scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
 }
 
 body {
@@ -673,7 +675,7 @@ p {
     }
 
     .site-header {
-        padding: 1rem 0 0.8rem;
+        padding: 0.9rem 0 0.72rem;
     }
 
     .header-inner {
@@ -682,26 +684,73 @@ p {
     }
 
     .site-name {
-        font-size: 1.1rem;
+        font-size: 1.06rem;
     }
 
     .site-nav {
-        gap: 0.5rem;
-        font-size: 0.76rem;
+        gap: 0.46rem;
+        font-size: 0.74rem;
     }
 
     .theme-toggle {
-        width: 1.55rem;
-        height: 1.55rem;
-        font-size: 0.85rem;
+        width: 1.45rem;
+        height: 1.45rem;
+        font-size: 0.8rem;
+    }
+
+    .site-main {
+        padding: 1.5rem 0 2.75rem;
+    }
+
+    .site-main-home {
+        padding-top: 1.6rem;
     }
 
     h1 {
-        font-size: 1.7rem;
+        font-size: 1.55rem;
+        line-height: 1.13;
+    }
+
+    .intro-copy {
+        margin-top: 0.85rem;
+        font-size: 0.95rem;
+        line-height: 1.44;
+    }
+
+    .intro-copy p {
+        margin-bottom: 0.58rem;
+    }
+
+    .featured-publications {
+        padding-top: 1rem;
+        margin-top: 1.45rem;
     }
 
     .section-heading-row {
         gap: 1rem;
+        margin-bottom: 0.65rem;
+    }
+
+    .section-heading-row h2 {
+        font-size: 1.06rem;
+    }
+
+    .section-link {
+        font-size: 0.78rem;
+    }
+
+    .selected-publication {
+        padding: 0.62rem 0 0.66rem;
+    }
+
+    .selected-publication h3 {
+        font-size: 0.94rem;
+        line-height: 1.34;
+    }
+
+    .selected-publication p {
+        margin-top: 0.16rem;
+        font-size: 0.78rem;
     }
 }
 
