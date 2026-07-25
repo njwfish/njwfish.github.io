@@ -299,6 +299,7 @@ p {
     width: min(100%, 17rem);
     margin: 0;
     aspect-ratio: 1;
+    align-self: center;
     justify-self: center;
 }
 
