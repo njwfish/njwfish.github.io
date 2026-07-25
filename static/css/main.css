@@ -2,14 +2,33 @@
     --page: #f2f1ed;
     --surface: #fdfdfb;
     --text: #252925;
+    --text-soft: #3d443f;
     --muted: #626a64;
     --faint: #8a918c;
     --rule: #d8dbd5;
+    --rule-soft: #e5e7e2;
     --accent: #8a3032;
     --accent-dark: #672224;
+    --code-bg: #f0efeb;
     --serif: Georgia, Cambria, "Times New Roman", Times, serif;
     --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
     --content-width: 1100px;
+    color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+    --page: #151816;
+    --surface: #1c201d;
+    --text: #edf0ec;
+    --text-soft: #d2d8d3;
+    --muted: #aeb7b0;
+    --faint: #89938c;
+    --rule: #3a413c;
+    --rule-soft: #303631;
+    --accent: #d89792;
+    --accent-dark: #f0b2ad;
+    --code-bg: #282d29;
+    color-scheme: dark;
 }
 
 *,
@@ -127,6 +146,7 @@ iframe {
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-end;
+    align-items: center;
     gap: 0.45rem 1.25rem;
     font-size: 0.86rem;
 }
@@ -149,6 +169,22 @@ iframe {
 
 .nav-cv {
     color: var(--text);
+}
+
+.theme-toggle {
+    padding: 0;
+    color: var(--muted);
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid transparent;
+    border-radius: 0;
+    font: inherit;
+    cursor: pointer;
+}
+
+.theme-toggle:hover {
+    color: var(--accent);
+    border-bottom-color: currentColor;
 }
 
 .site-main {
@@ -233,7 +269,7 @@ p {
 .intro-copy {
     max-width: 700px;
     margin-top: 2.1rem;
-    color: #3d443f;
+    color: var(--text-soft);
     font-family: var(--serif);
     font-size: clamp(1.12rem, 2vw, 1.28rem);
     line-height: 1.72;
@@ -272,7 +308,7 @@ p {
 
 .profile-section p,
 .profile-section li {
-    color: #424a44;
+    color: var(--text-soft);
     font-size: 0.91rem;
     line-height: 1.65;
 }
@@ -290,7 +326,7 @@ p {
 
 .interest-list li {
     padding: 0.38rem 0;
-    border-bottom: 1px solid #e5e7e2;
+    border-bottom: 1px solid var(--rule-soft);
 }
 
 .interest-list li:last-child {
@@ -471,7 +507,7 @@ p {
 .post-body {
     max-width: 760px;
     margin-top: 3rem;
-    color: #353c37;
+    color: var(--text-soft);
     font-family: var(--serif);
     font-size: 1.08rem;
     line-height: 1.78;
@@ -505,7 +541,7 @@ p {
 
 .post-body code {
     padding: 0.1em 0.3em;
-    background: #f0efeb;
+    background: var(--code-bg);
     border-radius: 2px;
     font-family: "SFMono-Regular", Consolas, monospace;
     font-size: 0.86em;
@@ -514,7 +550,7 @@ p {
 .post-body pre {
     overflow-x: auto;
     padding: 1rem;
-    background: #f0efeb;
+    background: var(--code-bg);
 }
 
 .post-body pre code {
@@ -647,8 +683,24 @@ p {
 }
 
 @media print {
+    :root,
+    :root[data-theme="dark"] {
+        --page: #ffffff;
+        --surface: #ffffff;
+        --text: #252925;
+        --text-soft: #3d443f;
+        --muted: #626a64;
+        --faint: #8a918c;
+        --rule: #d8dbd5;
+        --rule-soft: #e5e7e2;
+        --accent: #8a3032;
+        --accent-dark: #672224;
+        --code-bg: #f0efeb;
+        color-scheme: light;
+    }
+
     body {
-        background: white;
+        background: var(--page);
     }
 
     .site-shell {
