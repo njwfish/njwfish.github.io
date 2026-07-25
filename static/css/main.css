@@ -175,7 +175,11 @@ iframe {
 }
 
 .site-main {
-    padding: clamp(4rem, 8vw, 6.25rem) 0 clamp(5rem, 9vw, 7rem);
+    padding: clamp(2.75rem, 5vw, 3.75rem) 0 clamp(4.5rem, 8vw, 6rem);
+}
+
+.site-main-home {
+    padding-top: clamp(3.75rem, 7vw, 5.25rem);
 }
 
 .site-footer {
@@ -333,11 +337,11 @@ p {
 
 .page-heading {
     max-width: 680px;
-    margin-bottom: 3.5rem;
+    margin-bottom: 2.75rem;
 }
 
 .page-heading > p {
-    margin: 1rem 0 0;
+    margin: 0.7rem 0 0;
     color: var(--muted);
     font-family: var(--serif);
     font-size: 1.05rem;
@@ -557,7 +561,11 @@ p {
     }
 
     .site-main {
-        padding: 3.75rem 0 5rem;
+        padding: 2.75rem 0 4.5rem;
+    }
+
+    .site-main-home {
+        padding-top: 3.5rem;
     }
 
     .home-introduction h1 {
