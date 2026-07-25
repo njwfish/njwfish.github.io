@@ -283,7 +283,7 @@ p {
     display: grid;
     grid-template-columns: minmax(0, var(--reading-width)) minmax(14rem, 1fr);
     align-items: start;
-    gap: clamp(2.5rem, 5vw, 4rem);
+    column-gap: 0;
     max-width: none;
 }
 
@@ -296,17 +296,18 @@ p {
 }
 
 .home-portrait {
-    width: min(100%, 17rem);
+    display: grid;
+    width: 100%;
     margin: 0;
-    aspect-ratio: 1;
     align-self: center;
-    justify-self: center;
+    place-items: center;
 }
 
 .home-portrait img {
     display: block;
-    width: 100%;
-    height: 100%;
+    width: min(calc(100% - 3rem), 17rem);
+    height: auto;
+    aspect-ratio: 1;
     object-fit: cover;
     border-radius: 2px;
     filter: saturate(0.78);
