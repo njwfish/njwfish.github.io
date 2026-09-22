@@ -485,6 +485,17 @@ p {
     font-style: italic;
 }
 
+.co-first-marker {
+    margin-left: 0.08em;
+    color: var(--text-soft);
+}
+
+.page-heading .authorship-note {
+    margin-top: 0.65rem;
+    font-size: 0.82rem;
+    color: var(--muted);
+}
+
 .talk-heading h2,
 .post-heading h2 {
     font-size: 1.04rem;
